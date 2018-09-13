@@ -7,7 +7,7 @@ public class LoopsExampleMain {
 		
 		System.out.println("\nWhile:");
 		int count1 = 0;
-		while(count1++ < 10) { 
+		while(count1 < 10) { 
 			System.out.print(letters[count1] + " ");
 			count1++;
 		}
