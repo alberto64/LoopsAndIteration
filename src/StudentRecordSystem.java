@@ -88,11 +88,12 @@ public class StudentRecordSystem {
 	 */
 	public double averageStudentGPA() {
 		// YOUR CODE GOES HERE.
-		int sum = 0;
+		if(totalStudentRecords <= 0) { return 0; }
+		double sum = 0.0;
 		for(int i = 0; i < totalStudentRecords; i++) {
 			sum += studentRecords[i].getGPA();
 		}
-		return ((double) sum) / totalStudentRecords;
+		return sum / totalStudentRecords;
 	}
 
 	/* IMPLEMENT WITH ANY LOOP.
@@ -140,7 +141,7 @@ public class StudentRecordSystem {
 		}
 
 		public String toString() {
-			return "ID: " + id + ", Name: " + name + ", Gender: " + gender.genderLetter() + ", GPA: " + gpa;
+			return String.format("ID: " + id + ", Name: " + name + ", Gender: " + gender.genderLetter() + ", GPA: %.2f", gpa);
 		}
 		
 		// Getters
