@@ -6,13 +6,18 @@ public class ShellMain {
 	private static int totalStudents;
 	
 	public static void main(String[] args) {
+		// Initialize global variables
 		students = new StudentRecord[10];
 		totalStudents = 0;
+		
+		// Main menu management
 		System.out.println("\nWelcome to the Student Record System");
 		Scanner stream = new Scanner(System.in);
 		String input;
+		
+		// Infinite loop to keep the system running
 		while(true) {
-			do {
+			do { // At least once request the user to give a number.
 				System.out.println("\n Main Menu:");
 				System.out.println("\t 1 - Add a student into the system.");
 				System.out.println("\t 2 - Print all students in system.");
@@ -24,27 +29,38 @@ public class ShellMain {
 				input = stream.nextLine();				
 			} while(input == null | input.length() < 1 | input.length() > 1 | !Character.isDigit(input.charAt(0)));
 			
+			// Parse user option
 			switch(input) {
-				case "0":
+				case "0": // Exit the system
 					System.out.println("Goodbye");
-					stream.close();
+					stream.close(); // Close stream before ending execution
 					return;
-				case "1":
+				case "1": // Add a student to system
+					
+					// Request Student name
 					System.out.println("\n Name of Student:");
 					String name = stream.nextLine();
+					
+					// Request Student ID
 					String sID;
 					do {
 						System.out.println("\nStudent ID (8 Numbers):");
 						sID = stream.nextLine();
 					}while(sID.length() != 8 | !sID.matches("[0-9]{8}"));
+					
+					// Request Student Sex
 					String sexLetter;
 					do {
 						System.out.println("\nStudent's Sex (M/F):");
 						sexLetter = stream.nextLine();
 					}while(!sexLetter.equals("F") && !sexLetter.equals("M"));
 					Sex sex;
+					
+					// Parse Sex Option
 					if(sexLetter.equals("F")) { sex = Sex.FEMALE; } 
 					else { sex = Sex.MALE; }
+					
+					// Request Student Grade Point Average
 					float gpa = -1;
 					do {
 						System.out.println("\nStudent's GPA:");
@@ -53,24 +69,40 @@ public class ShellMain {
 						}
 						stream.nextLine();
 					} while(gpa < 0);
-					addStudent(name, sex, sID, gpa);
+					
+					// Register student
+					StudentRecord newSR = addStudent(name, sex, sID, gpa);
+					System.out.println("Added " + newSR.toString() + " into system.");
 					break;
-				case "2":
-					printStudents();
+				case "2": // Print All students registered
+					String[] studentRecords = recordsToString(); // Get records in string
+					System.out.println("\nRecords In System:");
+					System.out.println("\tName\tSex\tStudentID\tGPA");
+					for(String sr : studentRecords) {
+						System.out.println("\t" + sr);
+					}
 					break;
-				case "3":
+				case "3": // Search a student by their ID
+					
+					// Request the Student ID
 					String sID1 = "";
 					do {
 						System.out.println("\nStudent ID (8 Numbers):");
 						sID1 = stream.nextLine();
 					}while(sID1.length() != 8 | !sID1.matches("[0-9]{8}"));
-					searchStudent(sID1);
+					StudentRecord sr = searchStudent(sID1);
+					
+					// Print result
+					if(sr != null) { System.out.println("Student found: " + sr.toString()); }
+					else { System.out.println("No student found"); }
 					break;
 				case "4":
-					countStudentsBySex();
+					int[] result = countStudentsBySex();
+					System.out.println("Males: "+ result[0] + " Females: " + result[1]);
 					break;
 				case "5":
-					averageStudentGPA();
+					float avggpa = averageStudentGPA();
+					System.out.println("Average GPA: " + avggpa);
 					break;
 				default: 
 					System.out.println("\nUnknown option try again.");
@@ -79,55 +111,80 @@ public class ShellMain {
 		}
 	}
 	
+	/**
+	 * Creates an array of the records in form of a String
+	 * @return
+	 */
+	private static String[] recordsToString() {
+		String[] stringRecords = new String[totalStudents];
+		for(int idx = 0; idx < totalStudents; idx++) {
+			stringRecords[idx] = students[idx].toString();
+		}
+		return stringRecords;
+	}
+
+	/**
+	 * Replaces the current student list with the given one. 
+	 * It is assumed that the given list doesnt have nulls.
+	 * @param studentList
+	 */
 	public static void setStudentRecords(StudentRecord[] studentList) {
 		students = studentList;
+		totalStudents = studentList.length;
 	}
 	
-	private static void averageStudentGPA() {
+	/**
+	 * Calculates the Average of the GPA's in system.
+	 * @return
+	 */
+	private static float averageStudentGPA() {
 		float avg = 0;
 		for(int idx = 0; idx < totalStudents; idx++) {
 			avg += students[idx].getStudentGPA();
 		}
 		avg /= totalStudents;
-		System.out.println("GPA Average: " + avg);
+		return avg;
 	}
 
-	private static void countStudentsBySex() {
-		int male = 0;
-		int female = 0;
+	/**
+	 * Counts the instances of male and female students.
+	 * @return
+	 */
+	private static int[] countStudentsBySex() {
+		int[] sexCount = {0, 0};
 		for(int idx = 0; idx < totalStudents; idx++) {
-			if(students[idx].getStudentSex() == Sex.MALE) {
-				male++;
-			}
-			else {
-				female++;
-			}
-		}
-		System.out.println("Males: "+ male + " Females: " + female);
+			if(students[idx].getStudentSex() == Sex.MALE) { sexCount[0]++; }
+			else { sexCount[1]++; }
+		}	
+		return sexCount;
 	}
 
-	private static void searchStudent(String sID) {
+	/**
+	 * Searches the students with the given ID and returns their record.
+	 * @param sID
+	 * @return
+	 */
+	private static StudentRecord searchStudent(String sID) {
 		int idx = 0;
 		while(idx < totalStudents && !sID.equals(students[idx].getStudentID())) {
 			idx++;
 		}
 		if(idx < totalStudents) {
-			System.out.println(students[idx].toString());
+			return students[idx];
 		}
-		else {
-			System.out.println("No student found");
-		}
-		
+		return null;
 	}
 
-	private static void printStudents() {
-		System.out.println("\nRecords In System:");
-		for(int idx = 0; idx < totalStudents; idx++) {
-			System.out.println(students[idx].toString());
-		}
-	}
-
-	private static void addStudent(String name, Sex sex, String sID, float gpa) {
+	
+	/**
+	 * With the given parameters it creates and adds a new student record.
+	 * @param name
+	 * @param sex
+	 * @param sID
+	 * @param gpa
+	 * @return
+	 */
+	private static StudentRecord addStudent(String name, Sex sex, String sID, float gpa) {
 		if(totalStudents + 1 >= students.length) {
 			StudentRecord[] newList = new StudentRecord[students.length*2];
 			int idx = 0;
@@ -137,9 +194,16 @@ public class ShellMain {
 			}
 			students = newList;
 		}
-		students[totalStudents++] = new StudentRecord(name, sex, sID, gpa);
+		StudentRecord newStudent =  new StudentRecord(name, sex, sID, gpa);
+		students[totalStudents++] = newStudent;
+		return newStudent;
 	}
 
+	/**
+	 * Sex Enum type for male and female
+	 * @author alber
+	 *
+	 */
 	public enum Sex {
 		MALE('M'), FEMALE('F');
 		private final char letter;
@@ -147,6 +211,11 @@ public class ShellMain {
 		public char sexLetter() { return letter; }
 	}
 	
+	/**
+	 * Student record.
+	 * @author alber
+	 *
+	 */
 	public static class StudentRecord {
 		
 		private String sName;
@@ -162,7 +231,7 @@ public class ShellMain {
 		}
 
 		public String toString() {
-			return sName + " " + sex + " " + sID + " " + gpa;
+			return sName + "\t" + sex + "\t" + sID + "\t" + gpa;
 		}
 		
 		public String getStudentName() {
