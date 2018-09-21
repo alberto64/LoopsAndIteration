@@ -77,4 +77,16 @@ public class StudentRecordSystemTest {
 		assertEquals("Student gender count is incorrect.", threeStudents[0], studentRecordSystem.countStudentsByGender()[0]);
 		assertEquals("Student gender count is incorrect.", threeStudents[1], studentRecordSystem.countStudentsByGender()[1]);
 	}
+	
+	@Test
+	public void repeatedStudentNamesTest() {
+		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(3);
+		studentRecordSystem.addStudentRecord("802122423", "Julia", StudentRecordSystem.Gender.FEMALE, 3.04);
+		studentRecordSystem.addStudentRecord("802113679", "Pedro", StudentRecordSystem.Gender.MALE, 3.32); 
+		studentRecordSystem.addStudentRecord("802113349", "Eliezer", StudentRecordSystem.Gender.MALE, 3.87);
+		assertFalse("There are no repeated names", studentRecordSystem.repeatedStudentNames());
+		studentRecordSystem.addStudentRecord("802152268", "Julia", StudentRecordSystem.Gender.FEMALE, 4.00);
+		studentRecordSystem.addStudentRecord("802143852", "Pedro", StudentRecordSystem.Gender.MALE, 2.42);
+		assertTrue("There is a repeated name", studentRecordSystem.repeatedStudentNames());
+	}
 }

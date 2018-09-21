@@ -66,6 +66,7 @@ public class StudentRecordSystem {
 	/* IMPLEMENT USING A WHILE LOOP.
 	 * 
 	 * Searches the studentRecords with the given ID and returns their record.
+	 * It returns NULL if no record is found
 	 * 
 	 * HINT: Remember that totalStudentRecords represent the actual number of
 	 * student records.
@@ -110,6 +111,22 @@ public class StudentRecordSystem {
 			else { genderCount[1]++; }
 		}	
 		return genderCount;
+	}
+	
+	/* IMPLEMENT WITH NESTED LOOPS.
+	 * 
+	 * Returns true if two instances of StudentRecord have the same name, false otherwise.
+	 * HINT: Use the Equals method.
+	 */
+	public boolean repeatedStudentNames() {
+		for(int i = 0; i < totalStudentRecords; i++) {
+			for(int j = i+1; j < totalStudentRecords; j++) {
+				if(studentRecords[i].getName().equals(studentRecords[j].getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
