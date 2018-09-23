@@ -34,7 +34,7 @@ public class StudentRecordSystemTest {
 		expectedStrings[0] = "ID: 802174579, Name: Juan, Gender: M, GPA: 3.40";
 		expectedStrings[1] = "ID: 802122423, Name: Julia, Gender: F, GPA: 3.35";
 		expectedStrings[2] = "ID: 802113349, Name: Eliezer, Gender: M, GPA: 3.90";
-		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(3);
+		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(6);
 		String[] actualStrings = studentRecordSystem.recordsToString();
 		assertEquals("The size of array of Strings doesn't have the right length.", 0, actualStrings.length);
 		studentRecordSystem.addStudentRecord("802174579", "Juan", StudentRecordSystem.Gender.MALE, 3.40);
@@ -49,7 +49,7 @@ public class StudentRecordSystemTest {
 
 	@Test
 	public void searchStudentRecordTest() {
-		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(3);
+		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(2);
 		studentRecordSystem.addStudentRecord("802122423", "Julia", StudentRecordSystem.Gender.FEMALE, 3.35);
 		studentRecordSystem.addStudentRecord("802113679", "Pedro", StudentRecordSystem.Gender.MALE, 3.00); 
 		studentRecordSystem.addStudentRecord("802113349", "Eliezer", StudentRecordSystem.Gender.MALE, 3.90);
@@ -64,12 +64,15 @@ public class StudentRecordSystemTest {
 	@Test
 	public void averageStudentGPATest() {
 		StudentRecordSystem studentRecordSystem = StudentRecordSystem.initializeInstance(3);
-		assertEquals("Student record GPA is incorrect.", 0.0, studentRecordSystem.averageStudentGPA(), 1E-10);
+		assertEquals("Student record GPA is incorrect.", 0.0000000000, studentRecordSystem.averageStudentGPA(), 1E-10);
 		studentRecordSystem.addStudentRecord("802122423", "Julia", StudentRecordSystem.Gender.FEMALE, 4.00);
 		studentRecordSystem.addStudentRecord("802113679", "Pedro", StudentRecordSystem.Gender.MALE, 3.00); 
 		studentRecordSystem.addStudentRecord("802113349", "Eliezer", StudentRecordSystem.Gender.MALE, 2.00);
 		studentRecordSystem.addStudentRecord("802131831", "Zhoe", StudentRecordSystem.Gender.FEMALE, 1.00);
-		assertEquals("Student record GPA is incorrect.", 2.5, studentRecordSystem.averageStudentGPA(), 1E-10);
+		assertEquals("Student record GPA is incorrect.", 2.5000000000, studentRecordSystem.averageStudentGPA(), 1E-10);
+		studentRecordSystem.addStudentRecord("802118754", "Dillan", StudentRecordSystem.Gender.MALE, 2.50);
+		studentRecordSystem.addStudentRecord("802145672", "Rye", StudentRecordSystem.Gender.FEMALE, 3.50);
+		assertEquals("Student record GPA is incorrect.", 2.6666666666, studentRecordSystem.averageStudentGPA(), 1E-10);
 	}
 	
 	@Test
