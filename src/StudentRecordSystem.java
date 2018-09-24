@@ -35,17 +35,6 @@ public class StudentRecordSystem {
 	 */
 	public void addStudentRecord(String id, String name, Gender gender, double gpa) {
 		// YOUR CODE GOES HERE.
-		if(totalStudentRecords + 1 >= studentRecords.length) {
-			StudentRecord[] newList = new StudentRecord[studentRecords.length * 2];
-			int i = 0;
-			for(StudentRecord studentRecord : studentRecords) {
-				newList[i] = studentRecord;
-				i++;
-			}
-			studentRecords = newList;
-		}
-		StudentRecord newStudent =  new StudentRecord(id, name, gender, gpa);
-		studentRecords[totalStudentRecords++] = newStudent;
 	}
 	
 	/* IMPLEMENT USING A REGULAR FOR LOOP.
@@ -56,11 +45,7 @@ public class StudentRecordSystem {
 	 */
 	public String[] recordsToString() {
 		// YOUR CODE GOES HERE.
-		String[] stringRecords = new String[totalStudentRecords];
-		for(int i = 0; i < totalStudentRecords; i++) {
-			stringRecords[i] = studentRecords[i].toString();
-		}
-		return stringRecords;
+		return null;
 	}
 	
 	/* IMPLEMENT USING A WHILE LOOP.
@@ -73,13 +58,6 @@ public class StudentRecordSystem {
 	 */
 	public StudentRecord searchStudentRecord(String id) {
 		// YOUR CODE GOES HERE.
-		int i = 0;
-		while(i < totalStudentRecords) {
-			if(studentRecords[i].getID().equals(id)) {
-				return studentRecords[i];
-			}
-			i++;
-		}
 		return null;
 	}
 	
@@ -89,12 +67,7 @@ public class StudentRecordSystem {
 	 */
 	public double averageStudentGPA() {
 		// YOUR CODE GOES HERE.
-		if(totalStudentRecords <= 0) { return 0; }
-		double sum = 0.0;
-		for(int i = 0; i < totalStudentRecords; i++) {
-			sum += studentRecords[i].getGPA();
-		}
-		return sum / totalStudentRecords;
+		return 0;
 	}
 
 	/* IMPLEMENT WITH ANY LOOP.
@@ -105,12 +78,7 @@ public class StudentRecordSystem {
 	 */
 	public int[] countStudentsByGender() {
 		// YOUR CODE GOES HERE.
-		int[] genderCount = {0, 0};
-		for(int i = 0; i < totalStudentRecords; i++) {
-			if(studentRecords[i].getGender() == Gender.MALE) { genderCount[0]++; }
-			else { genderCount[1]++; }
-		}	
-		return genderCount;
+		return null;
 	}
 	
 	/* IMPLEMENT WITH NESTED LOOPS.
@@ -119,14 +87,8 @@ public class StudentRecordSystem {
 	 * HINT: Use the Equals method.
 	 */
 	public boolean repeatedStudentNames() {
-		for(int i = 0; i < totalStudentRecords; i++) {
-			for(int j = i+1; j < totalStudentRecords; j++) {
-				if(studentRecords[i].getName().equals(studentRecords[j].getName())) {
-					return true;
-				}
-			}
-		}
-		return false;
+		// YOUR CODE GOES HERE.
+		return false; 
 	}
 
 
