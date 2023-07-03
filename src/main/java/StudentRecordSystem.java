@@ -95,7 +95,12 @@ public class StudentRecordSystem {
 	 */
 	public int[] countStudentsByGender() {
 		// YOUR CODE GOES HERE.
-		return null;
+		int[] genderCount = {0, 0};
+		for(int i = 0; i < totalStudentRecords; i++) {
+			if(studentRecords[i].getGender() == Gender.MALE) { genderCount[0]++; }
+			else { genderCount[1]++; }
+		}	
+		return genderCount;
 	}
 	
 	/* IMPLEMENT WITH NESTED LOOPS.
