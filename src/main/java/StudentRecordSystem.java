@@ -75,6 +75,13 @@ public class StudentRecordSystem {
 	 */
 	public StudentRecord searchStudentRecord(String id) {
 		// YOUR CODE GOES HERE.
+		int i = 0;
+		while(i < totalStudentRecords) {
+			if(studentRecords[i].getID().equals(id)) {
+				return studentRecords[i];
+			}
+			i++;
+		}
 		return null;
 	}
 	
@@ -84,7 +91,12 @@ public class StudentRecordSystem {
 	 */
 	public double averageStudentGPA() {
 		// YOUR CODE GOES HERE.
-		return 0;
+		if(totalStudentRecords <= 0) { return 0; }
+		double sum = 0.0;
+		for(int i = 0; i < totalStudentRecords; i++) {
+			sum += studentRecords[i].getGPA();
+		}
+		return sum / totalStudentRecords;
 	}
 
 	/* IMPLEMENT WITH ANY LOOP.
