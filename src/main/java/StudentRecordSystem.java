@@ -91,7 +91,7 @@ public class StudentRecordSystem {
 	 * 
 	 * Returns a integer array with two elements where the first position represents
 	 * the number of males in the system and the second element represents the number of
-	 * females. 
+	 * females.
 	 */
 	public int[] countStudentsByGender() {
 		// YOUR CODE GOES HERE.
@@ -110,7 +110,14 @@ public class StudentRecordSystem {
 	 */
 	public boolean repeatedStudentNames() {
 		// YOUR CODE GOES HERE.
-		return false; 
+		for(int i = 0; i < totalStudentRecords; i++) {
+			for(int j = i+1; j < totalStudentRecords; j++) {
+				if(studentRecords[i].getName().equals(studentRecords[j].getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
