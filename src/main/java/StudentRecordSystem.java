@@ -91,7 +91,7 @@ public class StudentRecordSystem {
 	 * 
 	 * Returns a integer array with two elements where the first position represents
 	 * the number of males in the system and the second element represents the number of
-	 * females.
+	 * females. 
 	 */
 	public int[] countStudentsByGender() {
 		// YOUR CODE GOES HERE.
