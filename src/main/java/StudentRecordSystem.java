@@ -58,7 +58,11 @@ public class StudentRecordSystem {
 	 */
 	public String[] recordsToString() {
 		// YOUR CODE GOES HERE.
-		return null;
+		String[] stringRecords = new String[totalStudentRecords];
+		for(int i = 0; i < totalStudentRecords; i++) {
+			stringRecords[i] = studentRecords[i].toString();
+		}
+		return stringRecords;
 	}
 	
 	/* IMPLEMENT USING A WHILE LOOP.
