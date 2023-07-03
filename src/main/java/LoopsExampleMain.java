@@ -1,4 +1,4 @@
-
+package main.java;
 public class LoopsExampleMain {
 
 	public static void main(String[] args) {

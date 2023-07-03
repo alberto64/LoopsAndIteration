@@ -1,3 +1,5 @@
+package main.java;
+
 public class StudentRecordSystem {
 
 	private static StudentRecordSystem studentRecordSystem;
@@ -35,6 +37,17 @@ public class StudentRecordSystem {
 	 */
 	public void addStudentRecord(String id, String name, Gender gender, double gpa) {
 		// YOUR CODE GOES HERE.
+		if(totalStudentRecords + 1 >= studentRecords.length) {
+			StudentRecord[] newList = new StudentRecord[studentRecords.length * 2];
+			int i = 0;
+			for(StudentRecord studentRecord : studentRecords) {
+				newList[i] = studentRecord;
+				i++;
+			}
+			studentRecords = newList;
+		}
+		StudentRecord newStudent =  new StudentRecord(id, name, gender, gpa);
+		studentRecords[totalStudentRecords++] = newStudent;
 	}
 	
 	/* IMPLEMENT USING A REGULAR FOR LOOP.
