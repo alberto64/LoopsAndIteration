@@ -4,7 +4,7 @@ public class StudentRecordSystem {
 
 	private static StudentRecordSystem studentRecordSystem;
 	private StudentRecord[] studentRecords;
-	private int totalStudentRecords;	// Actual number of student records currently in the system.
+	private int totalStudentRecords;	// Actual number of student records currently in the system
 	
 	static {
 		studentRecordSystem = new StudentRecordSystem();
